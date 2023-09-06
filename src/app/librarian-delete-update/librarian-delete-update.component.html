@@ -1,0 +1,57 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+  <nz-breadcrumb-item>
+    Reservation
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>View/Delete</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+Search: <input type="text" [(ngModel)]="filterInput" placeholder="Filter bookings" style="border-radius:5px;width:200px"/>
+<br><br>
+<nz-table #basicTable [nzPageSize]="10" [nzScroll]="{ y: '800px' }" [nzData]="bookingList">
+    <thead>
+      <tr>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'id')">ID</th>
+        <th nzWidth="200px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'username')">Username</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'roomName')">Room Name</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'roomType')">Room Type</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'noOfUsers')">No Of Users</th>
+        <th nzWidth="120px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'bookingDate')">Booking Date</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'startTime')">Start Time</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'endTime')">End Time</th>
+        <th nzWidth="200px" >Equipment</th>
+        <th nzWidth="200px" >Refreshment</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'totalPayment')">Total Payment</th>
+        <th nzWidth="110px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'bookingStatus')">Booking Status</th>
+        <th nzWidth="100px" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChange($event, 'feedback')">Feedback</th>
+        <th nzWidth="100px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of basicTable.data | filter: filterInput">
+        <td>{{ booking.BookingID }}</td>
+        <td>{{ booking.Username }}</td>
+        <td>{{ booking.RoomName }}</td>
+        <td>{{ booking.RoomType }}</td>
+        <td>{{ booking.NoOfUsers }}</td>
+        <td>{{ booking.BookingDate }}</td>
+        <td>{{ booking.StartTime }}</td>
+        <td>{{ booking.EndTime }}</td>
+        <td>{{ booking.equipmentNames }}</td>
+        <td>{{ booking.refreshmentNames }}</td>
+        <td>RM{{ booking.TotalPayment }}</td>
+        <td>{{ booking.BookingStatus }}</td>
+        <td>{{ booking.Feedback }}</td>
+        <td *ngIf="((nowStringDate < booking.BookingDate) || ((nowStringDate == booking.BookingDate) && (nowStringTime <= booking.EndTime)))">
+          <button nz-button nzType="primary" style="background-color:rgb(245, 43, 83);border-radius: 10px;margin-left:-5px" (click)="deleteBookingById(booking.BookingID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+

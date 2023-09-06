@@ -1,0 +1,276 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Account
+    </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div style="margin:auto; max-width:800px">
+    <nz-tabset nzCentered>
+    <nz-tab nzTitle="Student/Staff">
+        <h2 style="text-align:center;margin-top:40px;font-style: italic;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">New APU Student/Staff Registration</h2>
+        <div style="padding:40px 0px">
+            <form nz-form [formGroup]="registerAPUForm" (ngSubmit)="registerStudentStaff()" style="margin:auto;">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Name</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+                        <input nz-input formControlName="name" placeholder="Vincent Lim">
+                        <ng-template #nameErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Name is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. Only upper case, lower case and space are allowed<br>
+                              2. Must start with upper case<br>
+                              3. Upper case must followed by lower case<br>
+                              4. Space must be in between lower case and upper case<br>
+                              5. No two space is allowed between characters<br>
+                              6. Must end with lower case<br>
+                              7. Number of characters (3-80) only</ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Username</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="usernameErrorTpl">
+                        <input nz-input formControlName="username" placeholder="vincentlim">
+                        <ng-template #usernameErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Username is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. Only upper case, lower case and numbers are allowed<br>
+                              2. Number of characters (3-80) only</ng-container>
+                            <ng-container *ngIf="control.hasError('uniqueUsername')">
+                                Username has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">TP No/Staff Id</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="identityErrorTpl">
+                        <input nz-input formControlName="tpNoStaffId" placeholder="TP000000">
+                        <ng-template #identityErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">TP No/Staff Id is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. TP No for Student: TPXXXXXX<br>
+                              2. Staff ID for Staff: SNXXXXXX</ng-container>
+                            <ng-container *ngIf="control.hasError('uniqueIdentity')">
+                                TP No / Staff ID has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Password</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                        <nz-input-group [nzSuffix]="suffixTemplate">
+                            <input [type]="passwordVisible ? 'text': 'password'" nz-input formControlName="password" placeholder="Aab@cd12">
+                        </nz-input-group>
+                        <ng-template #suffixTemplate>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></span>
+                        </ng-template>
+                        <ng-template #passwordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Password is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. At least one upper case, one lower case, one number and one symbol #,?,!,@,$,%,^,&,*,-<br>
+                              2. Min Length 8, Max Length 12</ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Email</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                        <input nz-input formControlName="email" placeholder="vincentlim@mail.apu.edu.my">
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Email is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('email') && !control.hasError('maxlength')">
+                                Invalid Email!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">
+                                Max length is 80!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('uniqueEmail')">
+                                Email has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Phone Number</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+                        <input nz-input formControlName="phoneNumber" placeholder="012-5550000">
+                        <ng-template #phoneErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Phone Number is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. Only Malaysian Mobile Number<br>
+                              2. 010/011 follow by a dash and 7 or 8 digits only<br>
+                              3. 012/013/014/015/016/017/018/019 follow by a dash and 7 digits only</ng-container>
+                            <ng-container *ngIf="control.hasError('uniquePhone')">
+                                Phone Number has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Date of Birth</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="DOB is required">
+                        <nz-date-picker formControlName="dob" style="width:100%" [nzDisabledDate]="disabledDate" [nzDefaultPickerValue]="showDate"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Gender</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="Gender is required">
+                        <nz-select formControlName="gender" nzPlaceHolder="Male">
+                            <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+                            <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row class="register-area" >
+                    <nz-form-control>
+                    <button nz-button nzType="primary" style="float:right" >Register</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Public User">
+        <h2 style="text-align:center;margin-top:40px;font-style: italic;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">New Public User Registration</h2>
+<div style="padding:40px 0px">
+    <form nz-form [formGroup]="registerPublicForm" (ngSubmit)="registerPublic()" style="margin:auto;">
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Name</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+                <input nz-input formControlName="name" placeholder="Vincent Lim">
+                <ng-template #nameErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Name is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Pls Follow format as below:<br>
+                      1. Only upper case, lower case and space are allowed<br>
+                      2. Must start with upper case<br>
+                      3. Upper case must followed by lower case<br>
+                      4. Space must be in between lower case and upper case<br>
+                      5. No two space is allowed between characters<br>
+                      6. Must end with lower case<br>
+                      7. Number of characters (3-80) only</ng-container>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Username</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="usernameErrorTpl">
+                <input nz-input formControlName="username" placeholder="vincentlim">
+                <ng-template #usernameErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Username is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Pls Follow format as below:<br>
+                      1. Only upper case, lower case and numbers are allowed<br>
+                      2. Number of characters (3-80) only</ng-container>
+                    <ng-container *ngIf="control.hasError('uniqueUsername')">
+                        Username has already existed. Please choose another one!
+                    </ng-container>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Password</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                <nz-input-group [nzSuffix]="suffixTemplate">
+                    <input [type]="passwordVisible ? 'text': 'password'" nz-input formControlName="password" placeholder="Aab@cd12">
+                </nz-input-group>
+                <ng-template #suffixTemplate>
+                    <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></span>
+                </ng-template>
+                <ng-template #passwordErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Password is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Pls Follow format as below:<br>
+                      1. At least one upper case, one lower case, one number and one symbol #,?,!,@,$,%,^,&,*,-<br>
+                      2. Min Length 8, Max Length 12</ng-container>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Email</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                <input nz-input formControlName="email" placeholder="vincentlim@gmail.com">
+                <ng-template #emailErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Email is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('email') && !control.hasError('maxlength')">
+                        Invalid Email!
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('maxlength')">
+                        Max length is 80!
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('uniqueEmail')">
+                        Email has already existed. Please choose another one!
+                    </ng-container>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Phone Number</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+                <input nz-input formControlName="phoneNumber" placeholder="012-5550000">
+                <ng-template #phoneErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Phone Number is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Pls Follow format as below:<br>
+                      1. Only Malaysian Mobile Number<br>
+                      2. 010/011 follow by a dash and 7 or 8 digits only<br>
+                      3. 012/013/014/015/016/017/018/019 follow by a dash and 7 digits only</ng-container>
+                    <ng-container *ngIf="control.hasError('uniquePhone')">
+                        Phone Number has already existed. Please choose another one!
+                    </ng-container>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Date of Birth</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="DOB is required">
+                <nz-date-picker formControlName="dob" style="width:100%" [nzDisabledDate]="disabledDate" [nzDefaultPickerValue]="showDate" ></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24">Gender</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Gender is required">
+                <nz-select formControlName="gender" nzPlaceHolder="Male">
+                    <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+                    <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row class="register-area" >
+            <nz-form-control>
+              <button nz-button nzType="primary" style="float:right" >Register</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+    </nz-tab>
+</nz-tabset>
+</div>
+
+
+

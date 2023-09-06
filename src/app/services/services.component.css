@@ -1,0 +1,59 @@
+@media only screen and (min-width:1431px){
+    .heading-content-1{
+        padding:0px 400px;
+        padding-top:80px
+    }
+
+    .heading-content-2{
+        padding:0px 400px;
+    }
+}
+
+
+@media only screen and (min-width:1120px) and (max-width:1430px){
+    .heading-content-1{
+        padding:0px 180px;
+        padding-top:80px
+    }
+
+    .heading-content-2{
+        padding:0px 180px;
+    }
+}
+
+@media only screen and (min-width:880px) and (max-width:1119px){
+    .heading-content-1{
+        padding:0px 100px;
+        padding-top:80px
+    }
+
+    .heading-content-2{
+        padding:0px 100px;
+    }
+  }
+
+  @media only screen and (min-width:600px) and (max-width: 879px){
+    .heading-content-1{
+        padding:0px 50px;
+        padding-top:80px;
+    }
+
+    .heading-content-2{
+        padding:0px 50px
+    }
+  }
+
+  @media only screen and (max-width: 599px){
+    .heading-content-1{
+        padding:0px 30px;
+        padding-top:40px;
+    }
+
+    .heading-content-2{
+        padding:0px 30px
+    }
+  }
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;

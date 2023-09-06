@@ -1,0 +1,158 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<div class="square-box" (click)="open()" *ngIf="!isVisible">
+    <i class="fa fa-bars" ></i>
+</div>
+<nz-layout class="layout">
+    <nz-sider *ngIf="isVisible" [nzCollapsible]="false" nzBreakpoint="lg" [nzCollapsedWidth]="0" [nzTrigger]="null" [(nzCollapsed)]="isCollapsed" style="background-color:azure">
+      <div class="logo">
+        <img src="/assets/image/APULOGO.png" style="width:160px;height:40px;">
+      </div>
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-item routerLink="/admin/dashboard"  nzMatchRouter>
+            <span nz-icon nzType="dashboard"></span>
+            <span>Dashboard</span>
+        </li>
+        <li nz-submenu nzTitle="Account" nzIcon="user">
+            <ul>
+                <li nz-menu-item routerLink="/admin/register-all" nzMatchRouter>Create</li>
+                <li nz-menu-item routerLink="/admin/account-update-delete" nzMatchRouter>View/Update/Delete</li>
+                <li nz-menu-item routerLink="/admin/account-approve-reject" nzMatchRouter>Approve/Reject</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Reservation" nzIcon="folder">
+            <ul>
+                <li nz-menu-item routerLink="/admin/librarian-book"  nzMatchRouter>Create</li>
+                <li nz-menu-item routerLink="/admin/librarian-delete-update"  nzMatchRouter>View/Delete</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Equipment" nzIcon="folder">
+            <ul>
+                <li nz-menu-item routerLink="/admin/stock-add"  nzMatchRouter>Create</li>
+                <li nz-menu-item routerLink="/admin/stock-delete-update"  nzMatchRouter>View/Update/Delete</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Refreshment" nzIcon="folder">
+            <ul>
+                <li nz-menu-item routerLink="/admin/refreshment-add"  nzMatchRouter>Create</li>
+                <li nz-menu-item routerLink="/admin/refreshment-delete-update"  nzMatchRouter>View/Update/Delete</li>
+            </ul>
+        </li>
+        <li nz-menu-item routerLink="/admin/room" nzMatchRouter>
+            <span nz-icon nzType="folder"></span>
+            <span>Room Details</span>
+        </li>
+        <li nz-menu-item routerLink="/admin/feedback" nzMatchRouter>
+            <span nz-icon nzType="bulb"></span>
+            <span>Feedback / Enquiry</span>
+        </li>
+        <li nz-submenu nzTitle="Statistic/Graph" nzIcon="bar-chart">
+            <ul>
+                <li nz-menu-item routerLink="/admin/statistic-usage-room" nzMatchRouter>Room</li>
+                <li nz-menu-item routerLink="/admin/statistic-usage-equipment"  nzMatchRouter>Equipment</li>
+                <li nz-menu-item routerLink="/admin/statistic-usage-refreshment"  nzMatchRouter>Refreshment</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Revenue Report" nzIcon="bar-chart">
+            <ul>
+                <li nz-menu-item routerLink="/admin/revenue"  nzMatchRouter>Revenue</li>
+            </ul>
+        </li>
+      </ul>
+    </nz-sider>
+
+    <!-- Drawer Design  -->
+    <nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="left" [nzWidth]="250"  (nzOnClose)="close()" [nzBodyStyle]="{'background-color':'azure'}">
+        <ng-container *nzDrawerContent>
+            <div style="background-color:azure">
+                <div class="logo">
+                <img src="/assets/image/APULOGO.png" style="width:160px;height:40px;">
+              </div>
+              <ul nz-menu nzMode="inline">
+                <li nz-menu-item routerLink="/admin/dashboard"  nzMatchRouter>
+                    <span nz-icon nzType="dashboard"></span>
+                    <span>Dashboard</span>
+                </li>
+                <li nz-submenu nzTitle="Account" nzIcon="user">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/register-all"  nzMatchRouter>Create</li>
+                        <li nz-menu-item routerLink="/admin/account-update-delete"  nzMatchRouter>View/Update/Delete</li>
+                        <li nz-menu-item routerLink="/admin/account-approve-reject"  nzMatchRouter>Approve/Reject</li>
+                    </ul>
+                </li>
+                <li nz-submenu nzTitle="Reservation" nzIcon="folder">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/librarian-book"  nzMatchRouter>Create</li>
+                        <li nz-menu-item routerLink="/admin/librarian-delete-update"  nzMatchRouter>View/Delete</li>
+                    </ul>
+                </li>
+                <li nz-submenu nzTitle="Equipment" nzIcon="folder">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/stock-add"  nzMatchRouter>Create</li>
+                        <li nz-menu-item routerLink="/admin/stock-delete-update"  nzMatchRouter>View/Update/Delete</li>
+                    </ul>
+                </li>
+                <li nz-submenu nzTitle="Refreshment" nzIcon="folder">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/refreshment-add"  nzMatchRouter>Create</li>
+                        <li nz-menu-item routerLink="/admin/refreshment-delete-update"  nzMatchRouter>View/Update/Delete</li>
+                    </ul>
+                </li>
+                <li nz-menu-item routerLink="/admin/feedback" nzMatchRouter>
+                    <span nz-icon nzType="bulb"></span>
+                    <span>Feedback / Enquiry</span>
+                </li>
+                <li nz-submenu nzTitle="Statistic/Graph" nzIcon="bar-chart">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/statistic-usage-room" nzMatchRouter>Room</li>
+                        <li nz-menu-item routerLink="/admin/statistic-usage-equipment"  nzMatchRouter>Equipment</li>
+                        <li nz-menu-item routerLink="/admin/statistic-usage-refreshment"  nzMatchRouter>Refreshment</li>
+                    </ul>
+                </li>
+                <li nz-submenu nzTitle="Revenue Report" nzIcon="bar-chart">
+                    <ul>
+                        <li nz-menu-item routerLink="/admin/revenue"  nzMatchRouter>Revenue</li>
+                    </ul>
+                </li>
+              </ul>
+            </div>
+            
+        </ng-container>
+    </nz-drawer>
+
+    <nz-layout style="background-color:wheat">
+      <nz-header style="display:flex; align-items: center; justify-content:flex-end;" >
+        <div style="margin-right:20px;margin-top:15px">
+            <a nz-dropdown [nzDropdownMenu]="menu">
+                <nz-avatar [nzSize]="36" nzIcon="user"></nz-avatar>
+            </a>
+        </div>
+       
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu style="margin-top:12px;border-radius: 10px;">
+              <li nz-menu-item routerLink="/admin/profile" nzMatchRouter style="border-radius:10px;">Profile</li>
+              <li nz-menu-item style="border-radius:10px;" (click)="logout()">Logout</li>
+            </ul>
+        </nz-dropdown-menu>
+        
+        
+      </nz-header>
+      <nz-content>
+        <div class="inner-content" style="border-radius:10px">
+            <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <br>
+      <nz-footer>&copy; Copyright <strong><span>Asia Pacific University of Technology & Innovation</span></strong>. All Rights Reserved</nz-footer>
+    </nz-layout>
+  </nz-layout>
+
+<nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100" >
+    <ng-template #tpl>
+        <div class="ant-back-top-inner"><span nz-icon nzType="arrow-up" nzTheme="outline"></span></div>
+    </ng-template>
+</nz-back-top>

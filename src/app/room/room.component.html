@@ -1,0 +1,94 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Room Details
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-table #basicTable [nzData]="allRoomList" [nzShowPagination]="false" [nzScroll]="{ y: '800px' }">
+    <thead>
+      <tr>
+        <th nzWidth="80px">ID</th>
+        <th nzWidth="100px">Room No</th>
+        <th nzWidth="100px">Room Type</th>
+        <th nzWidth="250px">Description</th>
+        <th nzWidth="100px">No of Feedback</th>
+        <th nzWidth="100px">Cozyness</th>
+        <th nzWidth="100px">Quietness</th>
+        <th nzWidth="120px">Comfortness</th>
+        <th nzWidth="200px">Image</th>
+        <th nzWidth="100px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.RoomID }}</td>
+        <td>{{ data.RoomNo }}</td>
+        <td>{{ data.RoomType }}</td>
+        <td>{{ data.RoomDescription }}</td>
+        <td>{{ data.NoOfFeedback }}</td>
+        <td>{{ data.RoomCozyness }}</td>
+        <td>{{ data.RoomQuietness }}</td>
+        <td>{{ data.RoomComfortness }}</td>
+        <td><img [src]="'/assets/image/' + data.RoomImage" style="width:170px; height:105px"></td>
+        <td>
+          <button nz-button nzType="primary" style="background-color:rgb(60, 230, 60);border-radius: 10px;margin-right:10px" (click)="openUpdateModal(data)">Edit</button>
+        </td> 
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Update User" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <h2 style="text-align:center;padding:20px 5px;font-style: italic;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Existing Room</h2>
+      <form nz-form [formGroup]="roomForm" enctype="multipart/form-data" >
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="8" [nzSm]="24">Room No</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="roomNo" readonly>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="8" [nzSm]="24">Description</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
+              <nz-textarea-count [nzMaxCharacterCount]="200">
+                <textarea nz-input rows="4" formControlName="description" placeholder="Type something here ..." style="resize:none"></textarea>
+              </nz-textarea-count>
+              <ng-template #descriptionErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Room Description is required!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern') && !control.hasError('maxlength')">
+                  Cannot begin with space!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">
+                  Max 200 characters only!
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="8" [nzSm]="24">Original Image</nz-form-label>
+            <nz-form-control>
+                <input nz-input formControlName="uploadImage" readonly>
+                <img [src]="'/assets/image/' + this.roomForm.value.uploadImage" *ngIf="this.roomForm.value.uploadImage != null" style="max-width:240px;max-height:200px; padding-top:10px">
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+          <nz-form-label [nzMd]="8" [nzSm]="24">New Image (Optional)</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="file" name="file" accept="image/png, image/jpeg, image/jpg" class="nz-form-control" formControlName="newImage" (change)="onChange($event)">
+            <img [src]="selectedImage" alt="Selected Image" *ngIf="selectedImage" style="max-width:240px;max-height:200px; padding-top:10px">
+            <span *ngIf="fileSizeError && !fileDuplicateNameError" style="color:red;">File size exceeds maximum limit of 2 MB.</span>
+            <span *ngIf="fileDuplicateNameError && !fileSizeError" style="color:red">File name has existed, Please choose another one!</span>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+</nz-modal>

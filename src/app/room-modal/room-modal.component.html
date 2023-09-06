@@ -1,0 +1,46 @@
+<!--
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+-->
+
+<nz-row>
+    <nz-col nzSm="10" nzXs="24">
+        <img *ngIf="isAvailable" [src]="'/assets/image/' + this.roomImage" style="height:190px;width:210px;border-radius:5px">
+    </nz-col>
+    <nz-col nzSm="14" nzXs="24">
+        <nz-row>
+            <nz-col nzSm="22" nzXs="24">
+                <b>{{this.title}}</b><br>{{roomInfo.RoomDescription}}
+            </nz-col>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSm="8" nzXs="24" style="margin-top:7px;">
+                Coziness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [ngModel]="roomCozyness" nzDisabled></nz-rate>
+            </nz-col>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSm="8" nzXs="24" style="margin-top:7px;">
+                Quietness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [ngModel]="roomQuietness" nzDisabled></nz-rate>
+            </nz-col>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSm="8" nzXs="24" style="margin-top:7px;">
+                Comfortness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [ngModel]="roomComfortness" nzDisabled></nz-rate>
+            </nz-col>
+        </nz-row>
+    </nz-col>
+</nz-row>
+    
+
+        
+

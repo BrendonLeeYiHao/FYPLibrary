@@ -1,0 +1,74 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Dashboard
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+  <nz-row [nzGutter]="[26,26]">
+    <nz-col nzSm="12" nzXs="24">
+      <nz-card style="border-radius:10px">
+        <nz-statistic [nzValue]="unreadFeedbackCount" nzTitle="Unread Feedback" [nzPrefix]="feedbackPrefixTpl"></nz-statistic>
+        <ng-template #feedbackPrefixTpl><span nz-icon nzType="like"></span></ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col nzSm="12" nzXs="24">
+      <nz-card style="border-radius:10px">
+        <nz-row [nzGutter]="[26,26]">
+          <nz-col nzSm="12" nzXs="24">
+            <nz-statistic [nzValue]="activeCount" nzTitle="Active Users" [nzPrefix]="userPrefixTpl"></nz-statistic>
+          </nz-col>
+          <nz-col nzSm="12" nzXs="24">
+            <nz-statistic [nzValue]="idleCount" nzTitle="Idle Users" [nzPrefix]="userPrefixTpl"></nz-statistic>
+          </nz-col>
+        </nz-row>
+        <ng-template #userPrefixTpl>
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+<br>
+  <nz-row [nzGutter]="[26,26]">
+    <nz-col nzSm="12" nzXs="24">
+      <nz-card style="border-radius:10px">
+        <nz-statistic [nzValue]="this.pendingApprovalCount" nzTitle="Pending Approval" [nzPrefix]="approvalPrefixTpl"></nz-statistic>
+        <ng-template #approvalPrefixTpl><span nz-icon nzType="inbox" nzTheme="outline"></span></ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col nzSm="12" nzXs="24">
+      <nz-card style="border-radius:10px">
+        <nz-row [nzGutter]="[26,26]">
+          <nz-col nzMd="8" nzSm="12" nzXs="24">
+            <nz-statistic [nzValue]="countSecondMonth" [nzTitle]="secondMonth + ' Bookings'" [nzPrefix]="approvalPrefixTpl"></nz-statistic>
+          </nz-col>
+          <nz-col nzMd="8" nzSm="12" nzXs="24">
+            <nz-statistic [nzValue]="countFirstMonth" [nzTitle]="firstMonth + ' Bookings'" [nzPrefix]="approvalPrefixTpl"></nz-statistic>
+          </nz-col>
+          <nz-col nzMd="8" nzSm="24" nzXs="24">
+            <nz-statistic
+              [nzValue]="(this.percentage | number: '1.0-2')!"
+              nzTitle="Percentage"
+              [nzPrefix]="prefixTplTwo"
+              [nzSuffix]="'%'"
+              [nzValueStyle]="{ color: greaterThanZero ? '#3F8600' : '#CF1322'}">
+            </nz-statistic>
+          </nz-col>
+        </nz-row>
+        <ng-template #prefixTplTwo>
+          <span *ngIf="!greaterThanZero" nz-icon nzType="arrow-down"></span>
+          <span *ngIf="greaterThanZero" nz-icon nzType="arrow-up"></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+
+
+
+
+

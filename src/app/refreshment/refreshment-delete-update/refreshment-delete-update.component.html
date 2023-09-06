@@ -1,0 +1,84 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+  <nz-breadcrumb-item>
+    <a>Refreshment</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>View/Update/Delete</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-table #basicTable [nzPageSize]="50" [nzScroll]="{ y: '800px' }" [nzData]="refreshmentList">
+    <thead>
+      <tr>
+        <th nzWidth="150px">ID</th>
+        <th nzWidth="150px">Name</th>
+        <th nzWidth="150px">Price</th>
+        <th nzWidth="150px">Stock</th>
+        <th nzWidth="150px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let refreshment of basicTable.data">
+        <td>{{ refreshment.id }}</td>
+        <td>{{ refreshment.name }}</td>
+        <td>RM {{ refreshment.price }}</td>
+        <td>{{ refreshment.stock }}</td>
+        <td>
+          <button nz-button nzType="primary" style="background-color:rgb(60, 230, 60);border-radius: 10px;margin-right:10px" (click)="openUpdateModal(refreshment)">Edit</button>
+          <button nz-button nzType="primary" style="background-color:rgb(245, 43, 83);border-radius: 10px;" (click)="openDeleteModal(refreshment.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Update Refreshment" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <h1 style="text-align:center; font-style: italic;padding:5px">Existing Refreshment</h1>
+
+      <form nz-form [formGroup]="refreshmentForm" style="max-width:800px;margin:auto">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="9" [nzSm]="24">Refreshment ID</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="id" readonly>
+            </nz-form-control>
+          </nz-form-item>
+          <br>
+          <nz-form-item>
+              <nz-form-label nzRequired [nzMd]="9" [nzSm]="24">Refreshment Name</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="name" readonly>
+              </nz-form-control>
+          </nz-form-item>
+          <br>
+          <nz-form-item>
+              <nz-form-label nzRequired [nzMd]="9" [nzSm]="24">Refreshment Price (RM)</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="priceErrorTpl">
+                  <input nz-input formControlName="price" placeholder="3.50">
+                  <ng-template #priceErrorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">Refreshment Price is required!</ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">Only max 2 digits allowed before and after decimal</ng-container>
+                  </ng-template>
+              </nz-form-control>
+          </nz-form-item>
+          <br>
+          <nz-form-item>
+              <nz-form-label nzRequired [nzMd]="9" [nzSm]="24">Refreshment Stock</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="stockErrorTpl">
+                <input nz-input type="number" formControlName="stock">
+                <ng-template #stockErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">Refreshment Stock is required!</ng-container>
+                  <ng-container *ngIf="control.hasError('max')">Maximum allowed stocks is 10000</ng-container>
+                  <ng-container *ngIf="control.hasError('pattern')">Only integers are allowed</ng-container>
+                </ng-template>
+              </nz-form-control>
+          </nz-form-item>
+          <br>
+          
+      </form>
+    </ng-container>
+  </nz-modal>
+

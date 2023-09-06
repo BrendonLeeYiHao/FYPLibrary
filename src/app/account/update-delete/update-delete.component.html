@@ -1,0 +1,175 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Account
+    </nz-breadcrumb-item>
+  <nz-breadcrumb-item>View/Update/Delete</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-tabset nzCentered>
+  <nz-tab nzTitle="Student/Staff">
+    Search: <input type="text" [(ngModel)]="filterInput" placeholder="Filter users" style="border-radius:5px;width:200px"/>
+    <br><br>
+
+    <nz-table #APUTable [nzPageSize]="10" [nzScroll]="{ y: '800px' }" [nzData]="APUuserList">
+        <thead>
+          <tr>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'id')" nzWidth="80px">ID</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'name')" nzWidth="200px">Name</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'username')" nzWidth="200px">Username</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'tpNoStaffId')" nzWidth="150px">TpNo / StaffId</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'email')" nzWidth="200px">Email</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'phone')" nzWidth="150px">Phone Number</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'dob')" nzWidth="150px">Date of Birth</th>
+            <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeAPU($event, 'gender')" nzWidth="100px">Gender</th>
+            <th nzWidth="150px">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of APUTable.data | filter : filterInput">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.tpNoStaffId }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>{{ user.dob }}</td>
+            <td>{{ user.gender }}</td>
+            <td>
+              <button nz-button nzType="primary" style="background-color:rgb(60, 230, 60);border-radius: 10px;margin-right:10px" (click)="openUpdateModal(user)">Edit</button>
+              <button nz-button nzType="primary" style="background-color:rgb(245, 43, 83);border-radius: 10px;" (click)="openDeleteModal(user.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+    </nz-table>
+  </nz-tab>
+
+  <nz-tab nzTitle="Public User">
+    Search: <input type="text" [(ngModel)]="filterInput" placeholder="Filter users" style="border-radius:5px;width:200px"/>
+    <br><br>
+    <nz-table #publicTable [nzPageSize]="10" [nzScroll]="{ y: '800px' }" [nzData]="publicUserList">
+      <thead>
+        <tr>
+          <th nzColumnKey="id" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'id')"  nzWidth="80px">ID</th>
+          <th nzColumnKey="name" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'name')" nzWidth="200px">Name</th>
+          <th nzColumnKey="username" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'username')" nzWidth="200px">Username</th>
+          <th nzColumnKey="email" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'email')" nzWidth="200px">Email</th>
+          <th nzColumnKey="phone" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'phone')" nzWidth="150px">Phone Number</th>
+          <th nzColumnKey="dob" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'dob')" nzWidth="150px">Date of Birth</th>
+          <th nzColumnKey="gender" [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangePublic($event, 'gender')" nzWidth="100px">Gender</th>
+          <th nzWidth="150px">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of publicTable.data | filter : filterInput">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>{{ user.dob }}</td>
+          <td>{{ user.gender }}</td>
+          <td>
+            <button nz-button nzType="primary" style="background-color:rgb(60, 230, 60);border-radius: 10px;margin-right:10px" (click)="openUpdateModal(user)">Edit</button>
+            <button nz-button nzType="primary" style="background-color:rgb(245, 43, 83);border-radius: 10px;" (click)="openDeleteModal(user.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Update User" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <h2 style="text-align:center;margin-top:20px;font-style: italic;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Existing User</h2>
+        <div style="padding:20px 0px">
+            <form nz-form [formGroup]="updatedForm" style="margin:auto;">
+                <nz-form-item>
+                  <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">ID</nz-form-label>
+                  <nz-form-control>
+                      <input nz-input formControlName="id" readonly>
+                  </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Name</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="name" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Username</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="username" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item *ngIf="showIdentity">
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">TP No/Staff Id</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="tpNoStaffId" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br *ngIf="showIdentity">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Email</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                        <input nz-input formControlName="email" placeholder="examplelee@gmail.com">
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Email is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('email') && !control.hasError('maxlength')">
+                              Invalid Email!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">
+                              Max length is 80!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('uniqueEmail')">
+                                Email has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Phone Number</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+                        <input nz-input formControlName="phoneNumber" placeholder="012-5550000">
+                        <ng-template #phoneErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Phone Number is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. Only Malaysian Mobile Number<br>
+                              2. 010/011 follow by a dash and 7 or 8 digits only<br>
+                              3. 012/013/014/015/016/017/018/019 follow by a dash and 7 digits only</ng-container>
+                            <ng-container *ngIf="control.hasError('uniquePhone')">
+                                Phone Number has already existed. Please choose another one!
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Date of Birth</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="dob" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Gender</nz-form-label>
+                    <nz-form-control>
+                          <input nz-input formControlName="gender" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </ng-container>
+  </nz-modal>
+
+
+

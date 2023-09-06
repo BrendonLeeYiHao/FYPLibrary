@@ -1,0 +1,64 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+  <nz-breadcrumb-item>
+    Refreshment
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+
+<h2 style="text-align:center; font-style: italic;padding:20px 5px">New Refreshment</h2>
+
+<form nz-form [formGroup]="refreshmentForm" style="max-width:800px;margin:auto">
+    <nz-form-item>
+      <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Refreshment Name</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+        <input nz-input formControlName="name" placeholder="Fruit Juice">
+        <ng-template #nameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Refreshment Name is required!</ng-container>
+          <ng-container *ngIf="control.hasError('pattern')">
+            Pls Follow format as below:<br>
+            1. Only upper case, lower case and numbers are allowed<br>
+            2. Do not start with space<br>
+            3. No two space is allowed between characters<br>
+            4. Cannot end with space<br>
+            5. Number of characters (3-50) only</ng-container>
+          <ng-container *ngIf="control.hasError('uniqueName')">
+              Refreshment Name has already existed. Please choose another one!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <br>
+    <nz-form-item>
+        <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Refreshment Price (RM)</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="priceErrorTpl">
+            <input nz-input formControlName="price" placeholder="3.50">
+            <ng-template #priceErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Refreshment Price is required!</ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">Only max 2 digits allowed before and after decimal</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <br>
+    <nz-form-item>
+        <nz-form-label nzRequired [nzMd]="6" [nzSm]="24" >Refreshment Stock</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="stockErrorTpl">
+          <input nz-input  formControlName="stock">
+          <ng-template #stockErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Refreshment Stock is required!</ng-container>
+            <ng-container *ngIf="control.hasError('max')">Maximum allowed stocks is 10000</ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">Only integers are allowed</ng-container>
+          </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <button nz-button nzType="primary" style="float:right" (click)="createRefreshment()">Confirm</button>
+    <br>
+    
+</form>
+

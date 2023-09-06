@@ -1,0 +1,125 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Feedback" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <nz-row>
+                <nz-col nzSpan="24">
+                    <nz-row>
+                        <nz-col>
+                            <b style="font-size:20px">{{roomName}}</b><br>
+                        </nz-col>
+                    </nz-row>
+                    
+                    <nz-row>
+                        <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                            Coziness
+                        </nz-col>
+                        <nz-col nzSm="14" nzXs="24">
+                            <nz-rate [(ngModel)]="roomCozyness" [nzCharacter]="customStarTemplate"></nz-rate>
+                        </nz-col>
+
+                        <ng-template #customStarTemplate>
+                            <span nz-icon nzType="star" nzTheme="fill" style="font-size:30px;margin-top:10px"></span>
+                        </ng-template>
+                    </nz-row>
+                    <nz-row>
+                        <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                            Quietness
+                        </nz-col>
+                        <nz-col nzSm="14" nzXs="24">
+                            <nz-rate [(ngModel)]="roomQuietness" [nzCharacter]="customStarTemplate"></nz-rate>
+                        </nz-col>
+                    </nz-row>
+                    <nz-row>
+                        <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                            Comfortness
+                        </nz-col>
+                        <nz-col nzSm="14" nzXs="24">
+                            <nz-rate [(ngModel)]="roomComfortness" [nzCharacter]="customStarTemplate"></nz-rate>
+                        </nz-col>
+                    </nz-row>
+                </nz-col>
+                <br>
+            </nz-row>
+    </ng-container>
+    
+</nz-modal>
+
+
+
+
+<div style="min-height: 600px" *ngIf="originalCompleteHistoryList.length > 0">
+    <h1 style="text-align:center;font-weight: bold;padding:20px 10px 10px 10px">Booking History</h1>
+    <div style="margin:auto;max-width:1000px;text-align:left;padding:10px" *ngIf="originalCompleteHistoryList.length > 0">
+        <span style="font-size:16px;padding-right:10px;margin-top:5px">Search: </span>
+        <input nz-input [(ngModel)]="searchQuery" placeholder="Filter by room name or date" style="max-width:220px;border-radius:15px;margin-right:10px;margin-top:5px">
+        <button nz-button nzType="primary" style="border-radius: 15px;margin-top:5px" (click)="getFilteredHistoryList()">Filter</button>
+    </div>
+    <div style="padding:10px;max-width:1000px;margin:auto;" *ngIf="searchDataVisible">
+        <div style="background-color:rgb(234, 247, 250);padding:50px 10px 50px 10px;border-radius:20px;margin-bottom:10px;font-family:'Times New Roman', Times, serif;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);margin:auto;text-align:center;">
+            <nz-empty></nz-empty>
+        </div>
+    </div>
+
+
+    <div style="margin:auto;max-width:1000px;text-align: center;padding:10px" *ngIf="originalCompleteHistoryList.length > 0">
+        <nz-row *ngFor="let history of this.completeHistoryList" style="background-color:rgb(234, 247, 250);padding:10px 10px 10px 10px;border-radius:20px;margin-bottom:10px;font-family:'Times New Roman', Times, serif;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);">
+                <nz-col [nzSm]="12" [nzMd]="9" style="padding:10px;margin:auto">
+                    <img [src]="'/assets/image/' + history.RoomImage" style="width:250px; height:180px;margin:auto;text-align:center;border-radius:5px">
+                </nz-col>
+                <nz-col [nzSm]="12" [nzMd]="10" style="margin:auto;padding:10px 10px 0px 10px;line-height:0.7">
+                    <div style="text-align:left">
+                        <p style="font-size:22px;padding-top:10px"><b>Booking Status: {{history.BookingStatus}}</b></p>
+                        <p>Booking ID: {{history.BookingID}}</p>
+                        <p>Room Name: {{history.RoomName}}</p>
+                        <p>Booking Date: {{history.BookingDate}}</p>
+                        <p>Start Time: {{history.StartTime}}</p>
+                        <p>End Time: {{history.EndTime}}</p>
+                        <p  style="font-size:22px;margin-top:20px"><b>Total Payment: RM{{history.TotalPayment}}</b></p>
+                    </div>
+
+                </nz-col>
+                <nz-col [nzSm]="24" [nzMd]="5" style="padding:10px;margin:auto">
+                    <button nz-button nzType="primary" style="width:145px;border-radius:20px;background-color:rgb(74, 200, 114)" (click)="viewDetails(history)">View Details</button>
+                    <br><br>
+                    <button *ngIf="history.Feedback == 'No' && history.BookingStatus == 'Completed'" nz-button nzType="primary" style="width:145px;border-radius:20px" (click)="provideFeedback(history.BookingID, history.RoomName)">Provide Feedback</button>
+                    <button *ngIf="history.BookingStatus == 'Ongoing'" nz-button nzType="primary" style="width:145px;border-radius:20px;background-color:rgb(196, 62, 62)" (click)="deleteBookingById(history.BookingID)">Cancel Booking</button>
+                </nz-col>
+        </nz-row>
+    </div>
+</div>
+
+
+<div style="min-height: 600px;" *ngIf="originalCompleteHistoryList.length == 0">
+    <h1 style="text-align:center;font-weight: bold;padding:20px 10px 10px 10px">Booking History</h1>
+    <div style="padding:10px;max-width:1000px;margin:auto;" *ngIf="originalCompleteHistoryList.length == 0">
+        <div style="background-color:rgb(234, 247, 250);padding:50px 10px 50px 10px;border-radius:20px;margin-bottom:10px;font-family:'Times New Roman', Times, serif;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);margin:auto;text-align:center;">
+            <nz-empty></nz-empty>
+        </div>
+    </div>
+    <div style="max-width:1000px;margin:auto;padding:10px" *ngIf="originalCompleteHistoryList.length == 0">
+        <button routerLink="/book" nz-button nzType="primary" nzSize="large" style="width:100%;border-radius:15px;background-color:rgb(187, 70, 211);border-color:rgb(187,70,211)"><b>START BOOKING NOW</b></button>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="viewDetailsVisible" nzTitle="More Details" (nzOnOk)="closeDetail()" (nzOnCancel)="closeDetail()" [nzCancelText]="null">
+    <ng-container *nzModalContent style="font-family:'Times New Roman', Times, serif">
+        <p style="font-size:18px"><b>Booking Status: {{bookingDetail.bookingStatus}}</b></p>
+        <p>Booking ID: <b>{{bookingDetail.id}}</b></p>
+        <p>Room Name: <b>{{bookingDetail.roomName}}</b></p>
+        <p>Room Type: <b>{{bookingDetail.roomType}}</b></p>
+        <p>No Of Users: <b>{{bookingDetail.noOfUsers}}</b></p>
+        <p>Booking Date: <b>{{bookingDetail.bookingDate}}</b></p>
+        <p>Start Time: <b>{{bookingDetail.startTime}}</b></p>
+        <p>End TIme: <b>{{bookingDetail.endTime}}</b></p>
+        <p>Equipment: <b>{{bookingDetail.equipmentNames}}</b></p>
+        <p>Refreshment: <b>{{bookingDetail.refreshmentNames}}</b></p>
+        <p>Total Payment: <b>RM{{bookingDetail.totalPayment}}</b></p>
+    </ng-container>
+</nz-modal>
+
+

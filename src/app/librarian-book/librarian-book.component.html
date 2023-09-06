@@ -1,0 +1,276 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Reservation
+    </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+  <h1 style="text-align:center; padding:20px 10px; font-weight:bold">Library Room Reservation</h1>
+<div style="max-width:900px; margin:auto; padding:10px 0px">
+    <nz-steps [nzCurrent]="current" [nzDirection]="stepsDirection">
+        <nz-step nzTitle="Select Room"></nz-step>
+        <nz-step nzTitle="Select Date"></nz-step>
+        <nz-step nzTitle="Select Item"></nz-step>
+        <nz-step nzTitle="Agree and Pay"></nz-step>
+    </nz-steps>
+</div>
+
+
+<div [hidden]="current > 0">
+    <div style="max-width:900px; overflow-x:scroll; margin:auto;">
+        <img id="floorMap" src="/assets/image/LibraryFloorPlan.PNG" usemap="#floors_map" style="max-width: 900px; height: auto;">
+        <map name="floors_map">
+            <area shape="rect"  coords="5,5,203,177" title="Room 1" href="#" data-key="room1">
+            <area shape="rect"  coords="210,5,408,177" title="Room 2" href="#" data-key="room2">
+            <area shape="rect"  coords="414,5,614,177" title="Room 3" href="#" data-key="room3">
+            <area shape="rect"  coords="620,5,820,177" title="Room 4" href="#" data-key="room4">
+            <area shape="rect"  coords="825,5,1025,177" title="Room 5" href="#" data-key="room5">
+            <area shape="rect"  coords="1025,5,1230,177" title="Room 6" href="#" data-key="room6">
+            <area shape="rect"  coords="6,484,287,654" title="Room 7" href="#" data-key="room7">
+            <area shape="rect"  coords="294,484,576,654" title="Room 8" href="#" data-key="room8">
+            <area shape="rect"  coords="581,484,866,654" title="Room 9" href="#" data-key="room9">
+            <area shape="rect"  coords="873,484,1154,654" title="Room 10" href="#" data-key="room10">
+        </map>
+    </div>
+    <div style="max-width:900px; padding:10px; border:7px solid whitesmoke;margin:auto;">
+        <p><b><i>Legend</i></b></p>
+        <nz-row>
+            <nz-col style="padding-bottom: 10px;">
+                <img src="/assets/image/4paxroom.PNG" style="width:55px; height:40px;vertical-align: middle;"><span style="padding:0px 30px 0px 10px;vertical-align: middle;">4-pax room</span>
+            </nz-col>
+            <nz-col style="padding-bottom: 10px;">
+                <img src="/assets/image/8paxroom.PNG" style="width:70px; height:40px;vertical-align: middle;"><span style="padding:0px 30px 0px 10px;vertical-align: middle;">8-pax room</span>
+            </nz-col>
+            <nz-col style="padding-bottom: 8px;">
+                <div style="display:inline-flex; align-items:center;vertical-align:middle">
+                    <div style="width:40px;height:40px;background-color:#b0f5b0;"></div>
+                    <span style="padding:0px 30px 0px 10px">Chosen</span>
+                </div>
+            </nz-col>
+        </nz-row>
+    </div>
+</div>
+<br>
+
+<div *ngIf="current == 1">
+    <form nz-form [formGroup]="firstStepForm" style="margin:auto; max-width:900px;">
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">Username</nz-form-label>
+                <nz-form-control nzHasFeedback nzErrorTip="Username is required!">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a username" formControlName="username" (ngModelChange)="changeDisabledDate($event)">
+                        <nz-option *ngFor="let user of allFilteredUserList" [nzLabel]="user" [nzValue]="user"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+        </nz-form-item>
+
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">Room Name</nz-form-label>
+            <nz-form-control nzErrorTip="Invalid Room Name!">
+                <input nz-input formControlName="roomName" readonly >
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">Room Type</nz-form-label>
+            <nz-form-control nzErrorTip="Invalid Room Type!">
+                <input nz-input formControlName="roomType" readonly >
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">No of Users</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="No Of User is required!">
+                <nz-select formControlName="noOfUsers" nzPlaceHolder="Select no of users (Including Myself)">
+                    <ng-container *ngFor="let option of noOfUserOption">
+                        <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
+                    </ng-container>            
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <nz-form-item>
+            <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">Booking Date</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Booking Date is required!">
+                <nz-date-picker formControlName="bookingdate" [nzFormat]="dateFormat" [nzAllowClear]="false" [nzDisabledDate]="disabledDate" (ngModelChange)="onDateSelect($event)"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+        <br>
+        <div *ngIf="startList.length > 0 && selectedDate">
+            <nz-form-item>
+                <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">Start Time</nz-form-label>
+                <nz-form-control nzHasFeedback nzErrorTip="Start Time is required!">
+                    <div style="display:flex; flex-wrap: wrap;">
+                        <div *ngFor="let startTime of startList">
+                            <button nz-button type="button" class="startDateBtn" (click)="setStartTimeControlName(startTime)" [ngClass]="{'selected': firstStepForm.controls['startTime'].value === startTime }" style="margin:5px; border-radius:10px;width:150px">{{startTime}}</button>
+                        </div>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="selectedStartTime">
+            <nz-form-item>
+                <nz-form-label nzRequired [nzMd]="4" [nzSm]="24" nzLabelAlign="left">End Time</nz-form-label>
+                <nz-form-control nzHasFeedback nzErrorTip="End Time is required!">
+                    <div style="display:flex; flex-wrap: wrap;">
+                        <div *ngFor="let endTime of endList">
+                            <button nz-button type="button" class="startDateBtn" (click)="setEndTimeControlName(endTime)" [ngClass]="{'selected': firstStepForm.controls['endTime'].value === endTime }" style="margin:5px; border-radius:10px;width:150px">{{endTime}}</button>
+                        </div>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+</div>
+
+<div class="steps-content" *ngIf="current == 2" style="max-width:900px;margin:auto;">
+    <!-- equipment table -->
+    <p>Equipment <b>(OPTIONAL)</b></p>
+    <nz-table #equipmentTable [nzData]="allInventoryList" [nzShowPagination]="false" [nzScroll]="{ y: '600px' }">
+        <thead style="background-color:blanchedalmond">
+          <tr>
+            <th nzWidth="200px">Name</th>
+            <th nzWidth="200px">Image</th>
+            <th nzWidth="250px">Description</th>
+            <th nzWidth="100px" *ngIf="this.retrievedUserType.UserType == 'Public User'">Price</th>
+            <th nzWidth="150px">Quantity</th>
+          </tr>
+        </thead>
+        <tbody style="background-color:blanchedalmond">
+          <tr *ngFor="let data of equipmentTable.data">
+            <td *ngIf="data.EquipmentStock > 0">{{ data.EquipmentName }}</td>
+            <td *ngIf="data.EquipmentStock > 0"><img [src]="'/assets/image/' + data.EquipmentImage" style="width:180px; height:100px"></td>
+            <td *ngIf="data.EquipmentStock > 0">{{ data.EquipmentDescription }}</td>
+            <td *ngIf="this.retrievedUserType.UserType == 'Public User' && data.EquipmentStock > 0">RM {{ data.EquipmentPrice }}</td>
+            <td *ngIf="data.EquipmentStock > 0"><nz-input-number [(ngModel)]="data.quantity" [nzMin]="0" [nzMax]="data.EquipmentStock" [nzStep]="1" ></nz-input-number></td>
+        </tr>
+        </tbody>
+    </nz-table>
+    <br>
+    <!-- refreshment table-->
+    <p>Refreshment <b>(OPTIONAL)</b></p>
+    <nz-table #refreshmentTable [nzData]="allRefreshmentList" [nzShowPagination]="false" [nzScroll]="{ y: '600px' }">
+        <thead style="background-color:blanchedalmond">
+          <tr>
+            <th nzWidth="200px">Name</th>
+            <th nzWidth="150px">Price</th>
+            <th nzWidth="150px">Quantity</th>
+          </tr>
+        </thead>
+        <tbody style="background-color:blanchedalmond">
+          <tr *ngFor="let data of refreshmentTable.data">
+            <td *ngIf="data.RefreshmentStock > 0">{{ data.RefreshmentName }}</td>
+            <td *ngIf="data.RefreshmentStock > 0">RM {{ data.RefreshmentPrice }}</td>
+            <td *ngIf="data.RefreshmentStock > 0"><nz-input-number [(ngModel)]="data.quantity" [nzMin]="0" [nzMax]="data.RefreshmentStock" [nzStep]="1"></nz-input-number></td>
+          </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<div class="steps-content" *ngIf="current == 3">
+    <div style="margin:auto; max-width:900px; font-family: 'Times New Roman', Times, serif; background-color:whitesmoke; padding:10px; border-radius:10px;">
+        <h2 style="margin-left:20px; font-weight:bold">Rules & Regulations</h2>
+        <ol style="margin-left:-5px">
+            <li>Ensure that you are adhering to the APU Professional Dress Code Policy as described in our <a href="https://new.apu.edu.my/a-safe-campus">university&#39;s website</a>.</li>
+            <li>Rooms are not soundproof. Hence, you are responsible to ensure your (and your team members&#39;) voices are kept at a moderate level when using the rooms.</li>
+            <li>The minimum number of users are one and maximum is up to eight users depending on the capacity of the room being reserved.</li>
+            <li>You are allowed to reserve a room for minimum one hour and maximum up to three hours.</li>
+            <li>All personal belongings must not be left unattended in the discussion room.</li>
+            <li>The discussion room should not be used for private study or for social/leisure activities (e.g. playing video game / watching movie, etc.).</li>
+            <li>Only food sold in librarian are allowed, no outside foods or drinks are allowed.</li>
+            <li>Only use the chairs and table provided in the room. Do not bring the furniture from other areas of the library to the discussion rooms.</li>
+            <li>Ensure the discussion room is neat and tidy before leaving. Arrange the furniture, switch off the lights and return all library materials (books, VGA cable, etc.) to the library counter.</li>
+            <li>Failure to comply with the library policies, rules and regulations will be grounded for suspension of Quiet Discussion Room privileges.</li>
+            <li>The library reserves the right to terminate the use of discussion rooms that disrupts users or staff or situations that interferes with normal library operations.</li>
+        </ol>
+        <label nz-checkbox [(ngModel)]="checked" style="margin-left:10px">I have read and agree to the rules & regulations</label>
+        <br> 
+        <div style="padding:10px">
+            <hr>
+            <h2><i>PAYMENT DETAILS</i></h2>
+            <h3 *ngIf="selectedEquipments.length > 0">Equipment</h3>
+            <nz-table *ngIf="selectedEquipments.length > 0" #paymentEquipmentTable [nzData]="selectedEquipments" [nzShowPagination]="false" [nzScroll]="{ y: '600px' }">
+                <thead style="background-color:blanchedalmond">
+                <tr>
+                    <th nzWidth="200px">Name</th>
+                    <th nzWidth="200px" *ngIf="this.retrievedUserType.UserType == 'Public User'">Price/unit</th>
+                    <th nzWidth="100px">Quantity</th>
+                    <th nzWidth="200px" *ngIf="this.retrievedUserType.UserType == 'Public User'">Total Price</th>
+                </tr>
+                </thead>
+                <tbody style="background-color:blanchedalmond">
+                    <tr *ngFor="let data of paymentEquipmentTable.data">
+                        <td>{{ data.EquipmentName }}</td>
+                        <td *ngIf="this.retrievedUserType.UserType == 'Public User'">RM {{ data.EquipmentPrice }}</td>
+                        <td>{{ data.quantity }}</td>
+                        <td *ngIf="this.retrievedUserType.UserType == 'Public User'">RM {{ data.EquipmentPrice * data.quantity | number: '1.2-2'}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <br *ngIf="selectedEquipments.length > 0">
+            <h3 *ngIf="selectedRefreshments.length > 0">Refreshment</h3>
+            <nz-table *ngIf="selectedRefreshments.length > 0" #paymentRefreshmentTable [nzData]="selectedRefreshments" [nzShowPagination]="false" [nzScroll]="{ y: '600px' }">
+                <thead style="background-color:blanchedalmond">
+                <tr>
+                    <th nzWidth="200px">Name</th>
+                    <th nzWidth="200px">Price/unit</th>
+                    <th nzWidth="100px">Quantity</th>
+                    <th nzWidth="200px">Total Price</th>
+                </tr>
+                </thead>
+                <tbody style="background-color:blanchedalmond">
+                    <tr *ngFor="let data of paymentRefreshmentTable.data">
+                    <td>{{ data.RefreshmentName }}</td>
+                    <td>RM {{ data.RefreshmentPrice }}</td>
+                    <td>{{ data.quantity }}</td>
+                    <td>RM {{ data.RefreshmentPrice * data.quantity | number: '1.2-2' }}</td>
+                </tr>
+                </tbody>
+            </nz-table>
+            <br *ngIf="selectedRefreshments.length > 0">
+            <h3 *ngIf="this.retrievedUserType.UserType == 'Public User'">Booking Fee</h3>
+            <nz-table *ngIf="this.retrievedUserType.UserType == 'Public User'" #bookingFeesTable [nzData]="bookingFeesList" [nzShowPagination]="false" [nzScroll]="{ y: '600px' }">
+                <thead  style="background-color:blanchedalmond">
+                    <tr>
+                        <th nzWidth="200px">Name</th>
+                        <th nzWidth="200px">Fees/&#189;hour</th>
+                        <th nzWidth="100px">No Of Minutes</th>
+                        <th nzWidth="200px">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody style="background-color:blanchedalmond">
+                    <tr *ngFor="let data of bookingFeesTable.data">
+                        <td>{{data.name}}</td>
+                        <td>RM {{data.feesPerHour | number: '1.2-2'}}</td>
+                        <td>{{data.noOfMinutes}}</td>
+                        <td>RM {{data.totalPrice | number: '1.2-2'}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <hr>
+            <p style="font-size:20px" *ngIf="(this.totalPriceEquipment + this.totalPriceRefreshment + this.bookingFees) != 0"><u>TOTAL PAYMENT:</u><b> RM {{(this.totalPriceEquipment + this.totalPriceRefreshment + this.bookingFees) | number: '1.2-2'}}</b></p>
+            <p style="font-size:20px" *ngIf="(this.totalPriceEquipment + this.totalPriceRefreshment + this.bookingFees) == 0"><u>TOTAL PAYMENT:</u><b> RM 0</b></p>
+        </div>
+        <br>
+    </div>
+</div>
+
+
+<div *ngIf="current > 0" style="margin:auto;max-width:900px;">
+    <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0" style="float:left" >
+        <span>Previous</span>
+        </button>
+        <button nz-button nzType="default" (click)="next()" *ngIf="current < 3" style="float:right">
+        <span>Next</span>
+        </button>
+        <button nz-button nzType="primary" (click)="done()" *ngIf="current === 3" style="float:right" >
+        <span>Done</span>
+    </button>
+    <br><br>
+</div>

@@ -1,0 +1,155 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<h1 *ngIf="this.userType != 'APU Librarian'" style="text-align:center;margin-top:20px;font-weight:bold">Profile</h1>
+<h2 *ngIf="this.userType == 'APU Librarian'" style="text-align:center;margin-top:20px;font-style: italic;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Profile</h2>
+        <div style="padding:10px;max-width:800px;margin:auto">
+            <form nz-form [formGroup]="originalForm" style="margin:auto;">
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Name</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="name" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Username</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="username" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br *ngIf="this.userType != 'Public User'">
+                <nz-form-item *ngIf="this.userType != 'Public User'">
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">TP No/Staff Id</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="tpNoStaffId" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Email</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="email" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Phone Number</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="phoneNumber" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Date of Birth</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="dob" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Gender</nz-form-label>
+                    <nz-form-control>
+                          <input nz-input formControlName="gender" readonly>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row class="register-area" >
+                    <nz-form-control [nzMd]="24">
+                    <button nz-button nzType="primary" style="float:right;width:70px" (click)="openUpdateModal()">Edit</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <hr style="margin:auto;max-width:760px;padding:0px 10px">
+        <br>
+        <div style="margin:auto;max-width:800px;padding:0px 10px"> 
+            <form nz-form [formGroup]="passwordForm" style="margin:auto;" (ngSubmit)="updatePassword()">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Password</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                        <nz-input-group [nzSuffix]="suffixTemplate">
+                            <input [type]="passwordVisible ? 'text': 'password'" nz-input formControlName="password" placeholder="Aab@cd12" (ngModelChange)="updateConfirmValidator()">
+                        </nz-input-group>
+                        <ng-template #suffixTemplate>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></span>
+                        </ng-template>
+                        <ng-template #passwordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Password is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                              Pls Follow format as below:<br>
+                              1. At least one upper case, one lower case, one number and one symbol #,?,!,@,$,%,^,&,*,-<br>
+                              2. Min Length 8, Max Length 12</ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzMd]="5" [nzSm]="24">Confirm Password</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="confirmPasswordErrorTpl">
+                        <nz-input-group [nzSuffix]="suffixTemplate">
+                            <input [type]="passwordVisible ? 'text': 'password'" nz-input formControlName="confirmPassword" placeholder="Aab@cd12">
+                        </nz-input-group>
+                        <ng-template #suffixTemplate>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></span>
+                        </ng-template>
+                        <ng-template #confirmPasswordErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Confirm your password!</ng-container>
+                            <ng-container *ngIf="control.hasError('confirm')">Two passwords that you enter do not match!</ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row class="register-area" >
+                    <nz-form-control>
+                    <button nz-button nzType="primary" style="float:right" >Change</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="Update User" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+            <ng-container *nzModalContent>
+                <form nz-form [formGroup]="updatedForm" style="margin:auto;">
+                    <nz-form-item>
+                        <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Email</nz-form-label>
+                        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                            <input nz-input formControlName="email" placeholder="examplelee@gmail.com">
+                            <ng-template #emailErrorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">Email is required!</ng-container>
+                                <ng-container *ngIf="control.hasError('email') && !control.hasError('maxlength')">
+                                    Invalid Email!
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('maxlength')">
+                                    Max length is 80!
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('uniqueEmail')">
+                                    Email has already existed. Please choose another one!
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <br>
+                    <nz-form-item>
+                        <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Phone Number</nz-form-label>
+                        <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+                            <input nz-input formControlName="phoneNumber" placeholder="012-5550000">
+                            <ng-template #phoneErrorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">Phone Number is required!</ng-container>
+                                <ng-container *ngIf="control.hasError('pattern')">
+                                Pls Follow format as below:<br>
+                                1. Only Malaysian Mobile Number<br>
+                                2. 010/011 follow by a dash and 7 or 8 digits only<br>
+                                3. 012/013/014/015/016/017/018/019 follow by a dash and 7 digits only</ng-container>
+                                <ng-container *ngIf="control.hasError('uniquePhone')">
+                                    Phone Number has already existed. Please choose another one!
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+                
+            </ng-container>
+        </nz-modal>

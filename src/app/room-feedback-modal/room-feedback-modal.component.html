@@ -1,0 +1,46 @@
+<!--
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+-->
+
+<nz-row>
+    <nz-col nzSpan="24">
+        <nz-row>
+            <nz-col>
+                <b style="font-size:20px">{{roomName}}</b>
+            </nz-col>
+        </nz-row>
+        
+        <nz-row>
+            <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                Coziness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [(ngModel)]="roomCozyness" [nzCharacter]="customStarTemplate"></nz-rate>
+            </nz-col>
+
+            <ng-template #customStarTemplate>
+                <span nz-icon nzType="star" nzTheme="fill" style="font-size:30px;margin-top:10px"></span>
+            </ng-template>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                Quietness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [(ngModel)]="roomQuietness" [nzCharacter]="customStarTemplate"></nz-rate>
+            </nz-col>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSm="10" nzXs="24" style="font-size:30px">
+                Comfortness
+            </nz-col>
+            <nz-col nzSm="14" nzXs="24">
+                <nz-rate [(ngModel)]="roomComfortness" [nzCharacter]="customStarTemplate"></nz-rate>
+            </nz-col>
+        </nz-row>
+    </nz-col>
+    <br>
+    <button nz-button type="primary" style="float:right" (click)="submitRoomFeedback()">Submit</button>
+</nz-row>

@@ -1,0 +1,93 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+  <nz-breadcrumb-item>
+    Equipment
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div style="margin:auto;max-width:800px">
+    <h2 style="text-align:center; font-style: italic;padding:5px;margin:20px 0px">New Equipment</h2>
+
+  <form nz-form [formGroup]="inventoryForm" enctype="multipart/form-data" >
+      
+      <nz-form-item>
+          <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Equipment Name</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+            <input nz-input formControlName="name" placeholder="Electronics">
+            <ng-template #nameErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Equipment Name is required!</ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">
+                Pls Follow format as below:<br>
+                1. Only upper case, lower case and numbers are allowed<br>
+                2. Do not start with space<br>
+                3. No two space is allowed between characters<br>
+                4. Cannot end with space<br>
+                5. Number of characters (3-50) only</ng-container>
+              <ng-container *ngIf="control.hasError('uniqueName')">
+                  Equipment Name has already existed. Please choose another one!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+      </nz-form-item>
+      <br>
+      <nz-form-item>
+          <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Equipment Description</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
+            <nz-textarea-count [nzMaxCharacterCount]="200">
+               <textarea nz-input rows="4" formControlName="description" placeholder="Type something here ..." style="resize:none"></textarea>
+            </nz-textarea-count>
+            <ng-template #descriptionErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Equipment Description is required!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern') && !control.hasError('maxlength')">
+                  Cannot begin with space!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">
+                  Max 200 characters only!
+                </ng-container>
+            </ng-template>
+          </nz-form-control>
+      </nz-form-item>
+      <br>
+      <nz-form-item>
+          <nz-form-label nzRequired [nzMd]="6" [nzSm]="24" >Equipment Price (RM)</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="priceErrorTpl">
+              <input nz-input formControlName="price" placeholder="3.50">
+              <ng-template #priceErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Equipment Price is required!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">Only max 2 digits allowed before and after decimal</ng-container>
+              </ng-template>
+          </nz-form-control>
+      </nz-form-item>
+      <br>
+      <nz-form-item>
+          <nz-form-label nzRequired [nzMd]="6" [nzSm]="24" >Equipment Stock</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="stockErrorTpl">
+            <input nz-input formControlName="stock">
+            <ng-template #stockErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Equipment Stock is required!</ng-container>
+              <ng-container *ngIf="control.hasError('max')">Maximum allowed stocks is 10000</ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">Only integers are allowed</ng-container>
+            </ng-template>
+          </nz-form-control>
+      </nz-form-item>
+      <br>
+      <nz-form-item>
+        <nz-form-label nzRequired [nzMd]="6" [nzSm]="24">Image File</nz-form-label>
+        <nz-form-control nzErrorTip="No File Chosen!">
+            <input nz-input type="file" name="file" accept="image/png, image/jpeg, image/jpg" class="nz-form-control" formControlName="uploadImage" (change)="onChange($event)">
+            <img [src]="selectedImage" alt="Selected Image" *ngIf="selectedImage" style="max-width:240px;max-height:200px; padding-top:10px">
+            <span *ngIf="fileSizeError && !fileDuplicateNameError" style="color:red;">File size exceeds maximum limit of 2 MB.</span>
+            <span *ngIf="fileDuplicateNameError && !fileSizeError" style="color:red">File name has existed, Please choose another one!</span>
+            
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button nzType="primary" style="float:right" (click)="upload()">Confirm</button>
+      <br>
+      
+  </form>
+</div>

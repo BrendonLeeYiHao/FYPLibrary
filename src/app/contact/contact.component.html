@@ -1,0 +1,143 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-carousel [nzDots]="false" [nzEnableSwipe]="false" style="height:280px;background-image: url('/assets/image/questionbg.png'); background-repeat:no-repeat;background-size:cover">
+    <div nz-carousel-content >
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <h1 class="pt-9 xs:px-4 lg:px-16 text-3xl font-bold text-stone-950" >GOT QUESTIONS?</h1><br>
+            <h3 class="xs:px-4 lg:px-16 text-lg font-serif text-stone-950" style="max-width:700px">We've got answers! Check out our frequently asked questions for quick and helpful information.</h3>
+        </div> 
+    </div>
+</nz-carousel>
+
+<h1 style="text-align: center;padding:20px 5px 10px 5px" class="text-2xl font-bold">Frequently Asked Questions</h1>
+<div style="padding:0px 5px;">
+  <nz-collapse style="max-width:900px;margin:auto;">
+    <nz-collapse-panel nzHeader="What's our Rules & Regulations that must abide?" nzActive="true" class="text-justify">
+        <ul style="line-height: 2;margin-left:25px" class="list-disc">
+            <li>Ensure that you are adhering to the APU Professional Dress Code Policy as described in our <a href="https://new.apu.edu.my/a-safe-campus">university&#39;s website</a>.</li>
+            <li>Rooms are not soundproof. Hence, you are responsible to ensure your (and your team members&#39;) voices are kept at a moderate level when using the rooms.</li>
+            <li>The minimum number of users are one and maximum is up to eight users depending on the capacity of the room being reserved.</li>
+            <li>You are allowed to reserve a room for minimum one hour and maximum up to three hours.</li>
+            <li>All personal belongings must not be left unattended in the discussion room.</li>
+            <li>The discussion room should not be used for private study or for social/leisure activities (e.g. playing video game / watching movie, etc.).</li>
+            <li>Only food sold in librarian are allowed, no outside foods or drinks are allowed.</li>
+            <li>Only use the chairs and table provided in the room. Do not bring the furniture from other areas of the library to the discussion rooms.</li>
+            <li>Ensure the discussion room is neat and tidy before leaving. Arrange the furniture, switch off the lights and return all library materials (books, VGA cable, etc.) to the library counter.</li>
+            <li>Failure to comply with the library policies, rules and regulations will be grounded for suspension of Quiet Discussion Room privileges.</li>
+            <li>The library reserves the right to terminate the use of discussion rooms that disrupts users or staff or situations that interferes with normal library operations.</li>
+        </ul>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="How to reserve a discussion room in APU?" class="text-justify">
+        <p><i>Step 1</i></p>
+        <p>Select room from the floor plan layout based on personal preference.
+         Green box will be shown upon hovering to the respective room. Upon room selection,
+         a pop up modal displaying the room image, its description and its rating on comfortness, cozyness and quietness.</p><br>
+        <p><i>Step 2</i></p>
+        <div><b>For APU Student / Staff</b></div>
+        <p>Select no of users who will be utilising the discussion room <b>(Remember to include yourself)</b>. Then, select booking date where 30 days advanced booking is allowed, followed by start time and end time.</p>
+        <div><b>For Public User</b></div>
+        <p>Select no of users who will be utilising the discussion room <b>(Remember to include yourself)</b>. Then, select booking date where 30 days advanced booking is allowed but <b>only available on weekends</b>, followed by start time and end time.</p><br>
+        <p><i>Step 3 <b>(Optional)</b></i></p>
+        <div><b>For APU Student / Staff</b></div>
+        <p>Select Equipment and Refreshment based on personal preference. Charges will be imposed only on purchasing refreshment.</p>
+        <div><b>For Public User</b></div>
+        <p>Select Equipment and Refreshment based on personal preference. Charges will be imposed on loaning equipment or purchasing refreshment or both. Booking Fee will be charged at a rate of RM2 per half an hour.</p><br>
+        <p><i>Step 4</i></p>
+        <p>Agree to the terms and conditions stated. Payment details will be shown with the sum up amount.</p>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Can I provide feedback/rating or report issues regarding the discussion rooms?" class="text-justify">
+        <p>Yes, users can provide rating after booking is completed. Feel free to report any issues at the Contact section. Our support team is more than willing to assist you.</p>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Does the library provide any equipment or refreshment to facilitate discussion among members?" class="text-justify">
+        <p>Yes, users are welcomed to loan our equipment such as laptop, cable and even purchase refreshment like tea or coffee to engaged more in the conversation.</p>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="What is the minimum number of members to be allowed to utilise the discussion room?" class="text-justify">
+        <p>Depending on the chosen room, at least one user can utilise the room for private online meeting. We have 6 rooms namely Room 1 - Room 6 can accommodate 4 users, whereas 4 rooms namely Room 7 - Room 10 can accommodate 8 users.</p>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Can I cancel booking made?" class="text-justify">
+        <p>You are allowed to cancel booking made before reserved hour starts. Do note that cancellation should be made if no show is confirmed, else warning or penalty can be imposed.</p>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Can librarians make a reservation for me?" class="text-justify">
+        <p>Yes, librarians can make a reservation for you. Kindly contact the librarian and provide him/her your username and booking preference based on availability.</p>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<br>
+<h1 style="text-align:center;padding:10px 5px" class="text-2xl font-bold">Keep In Touch With Us</h1>
+
+<div style="max-width:900px;margin:auto;">
+    <nz-row nzJustify="center">
+        <nz-col nzXs="24" nzMd="12">    
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.1466075748144!2d101.69798647373564!3d3.055411053724299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4abb795025d9%3A0x1c37182a714ba968!2sAsia%20Pacific%20University%20of%20Technology%20%26%20Innovation%20(APU)!5e0!3m2!1sen!2smy!4v1686122887651!5m2!1sen!2smy" style="border:0;border-radius:10px;width:100%;height:300px; padding:0px 5px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </nz-col>
+        <nz-col nzXs="24" nzMd="12">
+            <form nz-form [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()" style="margin:auto;padding:0px 5px">
+                <nz-form-item>
+                    <nz-form-label nzRequired nzXs="24" nzMd="5" nzLabelAlign="left">Name</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+                        <input nz-input formControlName="name" nzXs="24" nzMd="7" class="p-1" placeholder="Vincent Lim">
+                        <ng-template #nameErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Name is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                            Pls Follow format as below:<br>
+                            1. Only upper case, lower case and space are allowed<br>
+                            2. Must start with upper case<br>
+                            3. Upper case must followed by lower case<br>
+                            4. Space must be in between lower case and upper case<br>
+                            5. No two space is allowed between characters<br>
+                            6. Must end with lower case<br>
+                            7. Number of characters (3-80) only</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzXs="24" nzMd="5" nzLabelAlign="left">Email</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                        <input nz-input formControlName="email" nzXs="24" nzMd="7" class="p-1" placeholder="vincentlim@gmail.com">
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Email is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('email') && !control.hasError('maxlength')">
+                                Invalid Email!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">
+                                Max length is 80!
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <br>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzXs="24" nzMd="5" nzLabelAlign="left">Comment</nz-form-label>
+                    <nz-form-control nzHasFeedback [nzErrorTip]="commentErrorTpl">
+                    <nz-textarea-count [nzMaxCharacterCount]="200">
+                        <textarea nz-input rows="6" nzXs="24" nzMd="7" formControlName="comment" placeholder="Type something here ..." style="resize:none" class="p-1"></textarea>
+                    </nz-textarea-count>
+                    <ng-template #commentErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Comment is required!</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern') && !control.hasError('maxlength')">
+                                Cannot begin with space!
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">
+                                Max 200 characters only!
+                            </ng-container>
+                    </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-control>
+                      <button nz-button nzType="primary" style="float:right;background-color:rgb(0, 252, 92);width:100px;border-radius:10px" >Submit</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+
+        </nz-col>
+    </nz-row>
+</div>
+
+
+

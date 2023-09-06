@@ -1,0 +1,56 @@
+::-webkit-scrollbar{
+  display:none;
+}
+
+.selected{
+  background-color: rgb(40, 235, 40)
+}
+
+button.startDateBtn:hover{
+  background-color: rgb(105, 249, 105);
+}
+
+li{
+  padding-top:5px;
+  font-size:16px;
+}
+
+.number-pointer{
+  pointer-events: none;
+}
+
+form input{
+  font-size:16px;
+}
+
+nz-form-label{
+  font-size:20px;
+}
+
+tr:hover{
+  background-color:transparent;
+}
+
+.btn-previous{
+  margin-left:-20px;
+}
+
+.btn-done{
+  margin-right:-20px;
+}
+
+.hide-header{
+  display:none;
+}
+
+.spinner-container{
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent overlay for better visibility */
+}

@@ -1,0 +1,78 @@
+.layout {
+    min-height: 100vh;
+  }
+
+  .logo {
+    height: 40px;
+    margin: 16px;
+  }
+
+  nz-header {
+    background: wheat;
+    padding: 0;
+  }
+
+  nz-content {
+    margin: 24px 16px 0;
+  }
+
+  .inner-content {
+    padding: 24px;
+    background: #ffeaeafe;
+    min-height: 360px;
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+
+
+  :host ::ng-deep .ant-back-top {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  :host ::ng-deep .ant-back-top-inner {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #1088e9;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  /* ul li {
+    background-color:azure;
+  } */
+
+
+  /* .nz-sider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: width 0.3s ease;
+  } */
+
+
+  .square-box {
+    width: 40px; /* Adjust the width and height as per your requirements */
+    height: 40px;
+    background-color: #ccc; /* Set the background color of the square box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    left:0px;
+    top:70px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  
+  .fa.fa-bars {
+    font-size: 20px; /* Adjust the font size of the bars icon */
+    color: #000; /* Set the color of the bars icon */
+  }

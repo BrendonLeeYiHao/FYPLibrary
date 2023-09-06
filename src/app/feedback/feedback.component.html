@@ -1,0 +1,36 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+        Feedback / Enquiry
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+Search: <input type="text" [(ngModel)]="filterInput" placeholder="Filter users" style="border-radius:5px;width:200px" />
+<br><br>
+<nz-table #feedbackTable [nzPageSize]="10" [nzScroll]="{ y: '800px' }" [nzData]="feedbackList">
+    <thead>
+      <tr>
+        <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeFeedback($event, 'id')" nzWidth="80px">ID</th>
+        <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeFeedback($event, 'name')" nzWidth="200px">Name</th>
+        <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeFeedback($event, 'email')" nzWidth="200px">Email</th>
+        <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeFeedback($event, 'comment')" nzWidth="400px">Comment</th>
+        <th [nzSortFn]="true" (nzSortOrderChange)="onSortOrderChangeFeedback($event, 'date')" nzWidth="120px">Date</th>
+        <th nzWidth="150px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feedback of feedbackTable.data | filter: filterInput">
+        <td>{{ feedback.id }}</td>
+        <td>{{ feedback.name }}</td>
+        <td>{{ feedback.email }}</td>
+        <td>{{ feedback.comment }}</td>
+        <td>{{ feedback.date}}</td>
+        <td *ngIf="feedback.read == 0"><button nz-button nzType="primary" (click)="updateMarkAsRead(feedback.id)">Mark As Read</button></td>
+      </tr>
+    </tbody>
+</nz-table>

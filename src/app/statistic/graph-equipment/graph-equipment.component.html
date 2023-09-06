@@ -1,0 +1,40 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Statistic/Graph
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Equipment</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+Month:
+<nz-select style="min-width:200px;max-width:250px;margin-right:10px" [(ngModel)]="selectedMonth" >
+    <nz-option nzLabel="January" nzValue="1"></nz-option>
+    <nz-option nzLabel="February" nzValue="2"></nz-option>
+    <nz-option nzLabel="March" nzValue="3"></nz-option>
+    <nz-option nzLabel="April" nzValue="4"></nz-option>
+    <nz-option nzLabel="May" nzValue="5"></nz-option>
+    <nz-option nzLabel="June" nzValue="6"></nz-option>
+    <nz-option nzLabel="July" nzValue="7"></nz-option>
+    <nz-option nzLabel="August" nzValue="8"></nz-option>
+    <nz-option nzLabel="September" nzValue="9"></nz-option>
+    <nz-option nzLabel="October" nzValue="10"></nz-option>
+    <nz-option nzLabel="November" nzValue="11"></nz-option>
+    <nz-option nzLabel="December" nzValue="12"></nz-option>
+</nz-select>
+<button nz-button nzType="primary" style="margin-right:10px" (click)="filterByMonth(selectedMonth)">Filter</button>
+<button nz-button nzType="primary" (click)="filterByYear()">Filter By Year Only</button>
+
+
+
+
+<div class="parent-container">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [type]="barChartType">
+
+    </canvas>
+</div>
+

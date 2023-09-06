@@ -1,0 +1,51 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-carousel [nzDots]="false" [nzEnableSwipe]="false" style="height:280px;background-image: url('/assets/image/goldnice.jpg'); background-repeat:no-repeat;background-size:cover">
+    <div nz-carousel-content >
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <h1 class="pt-9 xs:px-4 lg:px-16 text-3xl font-bold text-stone-950" >BUILDING A GOLD BRIDGE TO YOUR CAREER</h1><br>
+            <h3 class="xs:px-4 lg:px-16 text-lg font-serif text-stone-950" style="max-width:550px">Move seamlessly from a university graduate to a working professional.</h3>
+        </div> 
+    </div>
+</nz-carousel>
+
+
+<p style="font-size:34px;text-align: center;padding:30px 10px 10px 10px;font-weight:bold">Facilities & Services</p>
+<p class="font-serif" style="font-size:24px;text-align: center;max-width:700px;margin:auto;padding:0px 10px 20px 10px">Vibrant, secure, friendly and diversified. Our modern APU Library is home to more than 10,000 students from all walks of life. 
+    A library with undoubtful brilliance that reflects the uniqueness and unprecedented knowledge development.</p>
+<br>
+
+<nz-carousel [nzDots]="false" [nzEnableSwipe]="false" style="height:500px;background-image: url('/assets/image/refreshmentdiscuss.png'); background-repeat:no-repeat;background-size:cover;">
+    <div nz-carousel-content >
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8;">
+            <h1 class="sm:pt-28 xs:pt-12 px-5 text-3xl font-bold text-right ml-auto lg:w-7/12 md:w-9/12 xs:w-full" style="color:rgba(60, 6, 6, 0.881)">Experience Refreshment like Never Before!</h1><br>
+            <h3 class="px-5 sm:text-xl xs:text-lg font-serif text-stone-950 sm:leading-10 xs:leading-8 text-right ml-auto lg:w-7/12 md:w-9/12 xs:w-full">
+                Indulge in the blissful world of rejuvenation and quench your thirst for 
+                relaxation. Our refreshing offerings such as <b>oat bar, sandwiches</b> and many more are here to invigorate your senses and 
+                revitalize your body.</h3>
+        </div> 
+    </div>
+</nz-carousel>
+    <p style="font-size:24px;text-align: center;max-width:700px;margin:auto;font-weight:bold;padding:25px 10px 20px 10px">Our Loaned Services (Equipment)</p> 
+
+<div style="margin:auto;text-align:center; max-width:1100px;">
+    <nz-row>
+        <ng-container *ngFor="let equipment of slicedItems">
+            <nz-col [nzMd]="12" [nzLg]="8" style="text-align: center;padding:10px;margin:auto;height:320px">            
+                <img [src]="'/assets/image/' + equipment.image" style="width:280px; height:160px;border-radius:5px;margin:auto">
+                <p style="color: #006dae;font-size:20px;font-weight:bold">{{equipment.name}}</p>
+                <p style="max-width:280px;margin:auto;">{{equipment.description}}</p>
+            </nz-col>
+        </ng-container>
+    </nz-row>
+    <div style="text-align:center;padding:10px">
+        <button *ngIf="isVisible" nz-button class="bg-purple-400" nzShape="round" nzSize="large" (click)="showMore()">Show More</button>
+    </div>
+    
+</div>
+
+

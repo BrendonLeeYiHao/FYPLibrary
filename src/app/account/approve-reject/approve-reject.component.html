@@ -1,0 +1,41 @@
+<!-- 
+Developer Name: Brendon Lee Yi Hao
+Course Name: BSc (Hons) Software Engineering
+Last Modified: 5/7/2023
+ -->
+
+<nz-breadcrumb style="margin-top:-60px;padding-bottom:30px">
+    <nz-breadcrumb-item>
+      Account
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Approve/Reject</nz-breadcrumb-item>
+  </nz-breadcrumb>
+<nz-table #basicTable [nzPageSize]="10" [nzScroll]="{ y: '800px' }" [nzData]="userList">
+    <thead>
+      <tr>
+        <th nzWidth="80px">ID</th>
+        <th nzWidth="200px">Name</th>
+        <th nzWidth="200px">Username</th>
+        <th nzWidth="200px">Email</th>
+        <th nzWidth="150px">Phone Number</th>
+        <th nzWidth="150px">Date of Birth</th>
+        <th nzWidth="100px">Gender</th>
+        <th nzWidth="150px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of basicTable.data">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.dob }}</td>
+        <td>{{ user.gender }}</td>
+        <td>
+          <button nz-button nzType="primary" style="background-color:rgb(60, 230, 60);border-radius: 10px;" (click)="approveAccount(user.id)">Approve</button>
+          <button nz-button nzType="primary" style="margin-left:10px;background-color:rgb(245, 43, 83);border-radius: 10px;" (click)="rejectAccount(user.id)">Reject</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
